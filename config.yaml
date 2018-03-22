@@ -1,0 +1,5 @@
+mongo:
+    db: 192.168.0.235
+    port: 27017
+    db_name : ip_proxy
+    collection_name : ip_info
