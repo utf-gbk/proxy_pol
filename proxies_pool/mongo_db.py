@@ -40,7 +40,7 @@ class Mongo():
         collection = self.collection
         db = self.conn[db_name]
         ip_pro = db[collection]
-        ip_list = ip_pro.find({app_name:{"$nin":["False"]}}).sort('time',-1).limit(20)
+        ip_list = ip_pro.find({app_name:{"$nin":[1]}}).sort('time',-1).limit(20)
             # .sort([('time', -1)]).limit(20)
 
         return ip_list[random.randint(0,19)]['_id']
@@ -52,3 +52,4 @@ class Mongo():
         ip_pro = db[collection]
 
         ip_pro.update({"_id":ip},{app_name:status_code},True)
+        print("更新成功")
