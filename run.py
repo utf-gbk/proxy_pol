@@ -7,4 +7,4 @@ if __name__ == '__main__':
     get = Proxy_get()
     p = Process(target=get.get_api)
     p.start()
-    app.run('0.0.0.0', 8999,debug=True)
+    app.run('192.168.0.235', 8999,debug=True)
