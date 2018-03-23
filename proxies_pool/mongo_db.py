@@ -27,6 +27,7 @@ class Mongo():
         for proxy in proxies_list:
             if proxy:
                 try:
+
                     ip_pro.insert_one({'_id': proxy,
                                         'time': datetime.datetime.now()})
                 except errors.DuplicateKeyError as e:
@@ -51,5 +52,7 @@ class Mongo():
         db = self.conn[db_name]
         ip_pro = db[collection]
 
-        ip_pro.update({"_id":ip},{app_name:status_code},True)
+        ip_pro.update({"_id":ip},{"$set":{app_name:status_code}},True)
+
+
         print("更新成功")

@@ -26,7 +26,11 @@ def send_proxy():
         status_code = request.form['status_code']
         ip = request.form['ip']
         status_code = int(status_code)
-        mongo.update(app_name,ip,status_code)
+        try:
+            mongo.update(app_name,ip,status_code)
+        except:
+            return "ip地址错误！"
+        return "sucess!"
     except:
-        print("传参错误！")
-    return "sucess!"
+        print("参数错误！")
+
