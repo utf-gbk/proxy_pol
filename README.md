@@ -26,4 +26,9 @@ ip  (当前使用ip)
 --
 示例：
 formdata = {"app_name":****,"status_code":0,"ip":*****}
-requests.post(api_1,data=formdata)
+requests.post(api_2,data=formdata)
+--
+
+**启动**
+接口启动 run_app.py
+代理池启动 run_pool.py

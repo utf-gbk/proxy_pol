@@ -3,3 +3,4 @@ mongo:
     port: 27017
     db_name : ip_proxy
     collection_name : ip_info
+    freeproxy_collection : free_ip

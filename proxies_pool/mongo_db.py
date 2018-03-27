@@ -11,7 +11,7 @@ class Mongo():
         self.collection = setting['mongo']['collection_name']
         self.conn = MongoClient(host=setting['mongo']['db'], port=setting['mongo']['port'],)
 
-    def insert(self,proxies_list):
+    def insert(self,proxies):
         """
         定时从数据源添加一组代理
         apps: apps:{name:amap, score:0}
@@ -24,17 +24,28 @@ class Mongo():
         db = self.conn[db_name]
         ip_pro = db[collection]
 
-        for proxy in proxies_list:
-            if proxy:
+        if type(proxies) == list:
+            for proxy in proxies:
                 try:
-
                     ip_pro.insert_one({'_id': proxy,
-                                        'time': datetime.datetime.now()})
+                                        'time': datetime.datetime.now(),
+                                       'source': 'KuaiDaiLi'})
                 except errors.DuplicateKeyError as e:
                     print(e)
-                    print('重复的数据')
+                    print('重复的proxy_ip')
                     print(proxy)
                     continue
+        else:
+            try:
+                ip_pro.insert_one({'_id': proxies,
+                                  'time': datetime.datetime.now(),
+                                   'source': 'Other'})
+            except errors.DuplicateKeyError as e:
+                print(e)
+                print('重复的active_free_ip')
+                print(proxies)
+
+
 
     def find(self,app_name):
         db_name = self.db_name

@@ -16,8 +16,12 @@ def get_proxy():
         return '传参错误！'
     # status_bol = result_json['status_code']
     print(request.form['app_name'])
-    positive_ip = mongo.find(request.form['app_name'])
-    return positive_ip
+    try:
+        positive_ip = mongo.find(request.form['app_name'])
+        return positive_ip
+    except:
+        return "no ip can be used!"
+
 
 @app.route("/send_proxy_status",methods=['POST'])
 def send_proxy():
