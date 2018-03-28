@@ -4,7 +4,7 @@ import requests
 import gevent
 from gevent import monkey
 from gevent.queue import Queue
-
+import time
 mongo_final = Mongo()
 mongo = Mongoclient()
 # monkey.patch_all()
@@ -34,14 +34,18 @@ class IP_Check():
             try:
                 proxy_ip = mongo.pop()
                 print("弹出ip：{}".format(proxy_ip))
-                for i in range(0,2):
-                    connection = self.validUsefulProxy(proxy_ip)
-                    if connection is True:
-                        mongo_final.insert(proxy_ip)
-                        print("插入freeip到代理池")
-                        break
-                    else:
-                        print("ip无效")
+                if len(proxy_ip)==0:
+                    print("协程等待中")
+                    time.sleep(300)
+                else:
+                    for i in range(0,2):
+                        connection = self.validUsefulProxy(proxy_ip)
+                        if connection is True:
+                            mongo_final.insert(proxy_ip)
+                            print("插入freeip到代理池")
+                            break
+                        else:
+                            print("ip无效{}次".format(i+1))
             except:
                 continue
                 # return None

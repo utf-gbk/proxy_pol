@@ -32,8 +32,7 @@ class Mongo():
                                        'source': 'KuaiDaiLi'})
                 except errors.DuplicateKeyError as e:
                     print(e)
-                    print('重复的proxy_ip')
-                    print(proxy)
+                    print('重复的proxy_ip:{}'.format(proxy))
                     continue
         else:
             try:

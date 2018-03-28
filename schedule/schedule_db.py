@@ -29,7 +29,7 @@ class Mongoclient():
                                        'time': datetime.datetime.now()})
                 except errors.DuplicateKeyError as e:
 
-                    print("重复的free_ip!")
+                    print("重复的free_ip:{}".format(proxy))
                     continue
     def pop(self):
         ip_pro = self.mongo_service()
