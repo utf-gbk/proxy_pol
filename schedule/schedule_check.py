@@ -33,7 +33,7 @@ class IP_Check():
         while True:
             try:
                 proxy_ip = mongo.pop()
-                print("弹出ip：{}".format(proxy_ip))
+                # print("弹出ip：{}".format(proxy_ip))
                 if len(proxy_ip)==0:
                     print("协程等待中")
                     time.sleep(300)
@@ -44,8 +44,8 @@ class IP_Check():
                             mongo_final.insert(proxy_ip)
                             print("插入freeip到代理池")
                             break
-                        else:
-                            print("ip无效{}次".format(i+1))
+                        # else:
+                    #     print("ip无效{}次".format(i+1))
             except:
                 continue
                 # return None
