@@ -1,4 +1,5 @@
 from pymongo import MongoClient, errors
+import pymongo
 import datetime
 import yaml
 import random
@@ -27,8 +28,9 @@ class Mongo():
         if type(proxies) == list:
             for proxy in proxies:
                 try:
+                    ip_pro.create_index([("time",pymongo.ASCENDING)], expireAfterSeconds=3*24*60*60)
                     ip_pro.insert_one({'_id': proxy,
-                                        'time': datetime.datetime.now(),
+                                        'time': datetime.datetime.utcnow(),
                                        'source': 'KuaiDaiLi'})
                 except errors.DuplicateKeyError as e:
                     print(e)
@@ -36,8 +38,9 @@ class Mongo():
                     continue
         else:
             try:
+                ip_pro.create_index([("time", pymongo.ASCENDING)], expireAfterSeconds=3*24*60*60)
                 ip_pro.insert_one({'_id': proxies,
-                                  'time': datetime.datetime.now(),
+                                  'time': datetime.datetime.utcnow(),
                                    'source': 'Other'})
             except errors.DuplicateKeyError as e:
                 print(e)
