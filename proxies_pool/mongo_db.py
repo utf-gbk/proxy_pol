@@ -28,9 +28,9 @@ class Mongo():
         if type(proxies) == list:
             for proxy in proxies:
                 try:
-                    ip_pro.create_index([("k_time",1)], expireAfterSeconds=3*24*60*60)
+                    ip_pro.create_index([("time",1)], expireAfterSeconds=3*24*60*60)
                     ip_pro.insert_one({'_id': proxy,
-                                        'k_time': datetime.datetime.utcnow(),
+                                        'time': datetime.datetime.utcnow(),
                                        'source': 'KuaiDaiLi'})
                 except errors.DuplicateKeyError as e:
                     print(e)
@@ -38,7 +38,7 @@ class Mongo():
                     continue
         else:
             try:
-                ip_pro.create_index([("time", 1)], expireAfterSeconds=3*24*60*60)
+                # ip_pro.create_index([("time", 1)], expireAfterSeconds=3*24*60*60)
                 ip_pro.insert_one({'_id': proxies,
                                   'time': datetime.datetime.utcnow(),
                                    'source': 'Other'})
